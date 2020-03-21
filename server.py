@@ -1,12 +1,12 @@
 from websocket_server import WebsocketServer
-from driving import Robot
+# from driving import Robot
 
-# class Robot():
-#   def __init__(self):
-#     print("Init")
+class Robot():
+  def __init__(self):
+    print("Init")
 
-#   def forward(self):
-#     print("Forward")
+  def forward(self):
+    print("Forward")
 # Called for every client connecting (after handshake)
 
 bot = Robot()
@@ -40,7 +40,7 @@ def message_received(client, server, message):
 
 
 PORT=9001
-print(f"Started on {PORT}")
+print("Started on 9000")
 server = WebsocketServer(PORT)
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
