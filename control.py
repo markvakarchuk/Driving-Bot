@@ -76,7 +76,7 @@ while True:
         False
         stop()
         break
-
+    False
     stop()
 # actions = {
 #             curses.KEY_UP:    forward(),
