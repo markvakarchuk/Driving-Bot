@@ -1,38 +1,46 @@
 import RPi.GPIO as GPIO        # import RPi.GPIO module  
 import time, keyboard, curses, sys, tty, termios
-# from gpiozero import Robot
 
 GPIO.setmode(GPIO.BOARD)       # set GPIO mode to BOARD  
+
 GPIO.setup(31, GPIO.OUT)          
 GPIO.setup(33, GPIO.OUT)         
 GPIO.setup(35, GPIO.OUT)         
 GPIO.setup(37, GPIO.OUT)
 
-
+i = 0
 
 def forward():
     GPIO.output(31, 0)         
     GPIO.output(37, 0)
     GPIO.output(33, 1)         
     GPIO.output(35, 1)
+    time.sleep(.1)
+    stop()
 
 def backward():
     GPIO.output(31, 1)         
     GPIO.output(37, 1)
     GPIO.output(33, 0)         
     GPIO.output(35, 0)
+    time.sleep(.1)
+    stop()
 
 def left():
     GPIO.output(31, 0)         
     GPIO.output(37, 0)
     GPIO.output(33, 1)         
     GPIO.output(35, 0)
+    time.sleep(.1)
+    stop()
 
 def right():
     GPIO.output(31, 0)         
     GPIO.output(37, 0)
     GPIO.output(33, 0)         
     GPIO.output(35, 1)
+    time.sleep(.1)
+    stop()
 
 def stop():
     GPIO.output(31, 0)         
@@ -40,19 +48,21 @@ def stop():
     GPIO.output(33, 0)         
     GPIO.output(35, 0)
 
+def quit():
+    GPIO.output(31, 0)         
+    GPIO.output(37, 0)
+    GPIO.output(33, 0)         
+    GPIO.output(35, 0)
+    GPIO.cleanup()
+
 def getch():
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-    try:
-        tty.setraw(sys.stdin.fileno())
-        ch = sys.stdin.read(1)
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+
+    char = getch.getch()
+
     return ch
 
 while True:
-    # Keyboard character retrieval method is called and saved into variable
-    char = getch()
+    char = raw_input()
 
     # The car will drive forward when the "w" key is pressed
     if(char == "w"):
@@ -76,8 +86,11 @@ while True:
         False
         stop()
         break
-    False
-    stop()
+        
+    i = i+1
+    if i > 500:
+        break
+    
 # actions = {
 #             curses.KEY_UP:    forward(),
 #             curses.KEY_DOWN:  backward(),

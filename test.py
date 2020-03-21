@@ -14,7 +14,12 @@ def run():
     GPIO.output(33, 1)         
     GPIO.output(35, 1)
     time.sleep(1)
-
+    #forward
+    GPIO.output(31, 0)         
+    GPIO.output(37, 0)
+    GPIO.output(33, 0.5)         
+    GPIO.output(35, 0.5)
+    time.sleep(1)
     #LEFT turn -- right motor forward
     GPIO.output(31, 0)         
     GPIO.output(37, 0)
@@ -33,6 +38,20 @@ def run():
     GPIO.output(31, 1)         
     GPIO.output(37, 1)
     GPIO.output(33, 0)         
+    GPIO.output(35, 0)
+    time.sleep(1)
+
+    #clockwise
+    GPIO.output(31, 1)         
+    GPIO.output(37, 0)
+    GPIO.output(33, 0)         
+    GPIO.output(35, 1)
+    time.sleep(1)
+
+    #counter clockwise
+    GPIO.output(31, 0)         
+    GPIO.output(37, 1)
+    GPIO.output(33, 1)         
     GPIO.output(35, 0)
     time.sleep(1)
 

@@ -2,24 +2,33 @@ import RPi.GPIO as GPIO        # import RPi.GPIO module
 import time, keyboard, curses, sys, tty, termios
 
  #set GPIO mode to BOARD  
-GPIO.setmode(GPIO.BOARD)      
-GPIOsetup = False
+# GPIO.setmode(GPIO.BOARD)      
+# GPIOsetup = False
 
-#set pinouts of motors
-#if PinA is HIGH & PinB is LOW motor spins forward 
-motorL_pinA = 31    
-motorL_pinB = 33
-motorR_pinA = 35
-motorR_pinB = 37
+# #set pinouts of motors
+# #if PinA is HIGH & PinB is LOW motor spins forward 
+# motorL_pinA = 31    
+# motorL_pinB = 33
+# motorR_pinA = 35
+# motorR_pinB = 37
 
-t = 0.25
+# t = 0.25
 
-i = 0
+# i = 0
 
 class robot():
+    t = 0.25
+    i = 0
     def __init__(self):
         global GPIOsetup
+        GPIOsetup = False
         if not GPIOsetup:
+            GPIO.setmode(GPIO.BOARD)
+            motorL_pinA = 31    
+            motorL_pinB = 33
+            motorR_pinA = 35
+            motorR_pinB = 37
+
             GPIO.setup(motorL_pinA, GPIO.OUT)          
             GPIO.setup(motorR_pinA, GPIO.OUT)         
             GPIO.setup(motorR_pinB, GPIO.OUT)
