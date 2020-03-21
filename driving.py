@@ -22,6 +22,7 @@ class robot():
     def __init__(self):
         global GPIOsetup
         GPIOsetup = False
+        print(GPIOsetup)
         if not GPIOsetup:
             GPIO.setmode(GPIO.BOARD)
             motorL_pinA = 31    
@@ -34,6 +35,7 @@ class robot():
             GPIO.setup(motorR_pinB, GPIO.OUT)
             GPIO.setup(motorL_pinB, GPIO.OUT)
             GPIOsetup = True
+            print(GPIOsetup)
         
     def forward(self):
         GPIO.output(motorL_pinA, 0)         

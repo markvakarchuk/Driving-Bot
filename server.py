@@ -1,13 +1,13 @@
 from websocket_server import WebsocketServer
-from driving import Robot
-import time
+# from driving import Robot
+# import time
 
-# class Robot():
-#   def __init__(self):
-#     print("Init")
+class Robot():
+  def __init__(self):
+    print("Init")
 
-#   def forward(self):
-#     print("Forward")
+  def forward(self):
+    print("Forward")
 # # Called for every client connecting (after handshake)
 
 bot = Robot()
