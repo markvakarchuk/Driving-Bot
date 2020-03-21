@@ -40,6 +40,7 @@ def message_received(client, server, message):
 
 
 PORT=9001
+print(f"Started on {PORT}")
 server = WebsocketServer(PORT)
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
