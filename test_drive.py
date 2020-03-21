@@ -13,28 +13,29 @@ def run():
     GPIO.output(37, 0)
     GPIO.output(33, 1)         
     GPIO.output(35, 1)
-    time.sleep(1)
+    time.sleep(5)
 
     #LEFT turn -- right motor forward
     GPIO.output(31, 0)         
     GPIO.output(37, 0)
     GPIO.output(33, 1)         
     GPIO.output(35, 0)
-    time.sleep(1)
+    time.sleep(3)
 
     #RIGHT turn -- left motor forward
     GPIO.output(31, 0)         
     GPIO.output(37, 0)
     GPIO.output(33, 0)         
     GPIO.output(35, 1)
-    time.sleep(1)
+    time.sleep(3)
 
     #backward
     GPIO.output(31, 1)         
     GPIO.output(37, 1)
     GPIO.output(33, 0)         
     GPIO.output(35, 0)
-    time.sleep(1)
+    time.sleep(5)
 
-run()
+run()    
+
 GPIO.cleanup()
