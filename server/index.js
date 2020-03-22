@@ -12,8 +12,8 @@ var log = grid.set(0, 0, 4, 2, blessed.log, { label: "Server Log" });
 
 var bar = grid.set(0, 2, 2, 2, contrib.bar, {
   label: "Connections",
-  barWidth: 4,
-  barSpacing: 6,
+  barWidth: 10,
+  barSpacing: 0,
   xOffset: 0,
   maxHeight: 5
 });
@@ -23,8 +23,7 @@ var table = grid.set(2, 2, 2, 2, contrib.table, {
   fg: "white",
   selectedFg: "white",
   selectedBg: "blue",
-  interactive: true,
-  label: "Active Processes",
+  label: "Messages By ID",
   width: "30%",
   height: "30%",
   border: { type: "line", fg: "cyan" },
@@ -58,6 +57,14 @@ let barGraph = {
 
 let messages = {};
 
+function updateBarGraph() {
+  barGraph.titles.push(moment().format("h:mm:ss a"));
+  barGraph.data.push(wss.clients.size);
+  barGraph.titles.splice(0, barGraph.titles.length - 6);
+  barGraph.data.splice(0, barGraph.data.length - 6);
+  bar.setData(barGraph);
+}
+
 wss.on("connection", function connection(ws, req) {
   const {
     query: { bot }
@@ -66,6 +73,7 @@ wss.on("connection", function connection(ws, req) {
   if (bot) {
     ws.bot = true;
   }
+  log.log(ws.id + ":connected:bot=" + Boolean(bot));
   ws.on("message", function incoming(message) {
     //console.log(ws.id, "received:", message);
     log.log(ws.id + ":received:" + message);
@@ -80,15 +88,19 @@ wss.on("connection", function connection(ws, req) {
     });
     table.setData({
       headers: ["ID", "Messages"],
-      data: Object.keys(messages).map(key => [key, messages[key]])
+      data: Object.keys(messages)
+        .sort((a, b) => messages[b] - messages[a])
+        .map(key => [key, messages[key]])
     });
   });
 
   ws.send(ws.id);
 
-  barGraph.titles.push(moment().format("h:mm:ss a"));
-  barGraph.data.push(wss.clients.size);
-  bar.setData(barGraph);
+  updateBarGraph();
+});
+
+wss.on("close", function closed(ws, req) {
+  updateBarGraph();
 });
 
 screen.key(["escape", "q", "C-c"], function(ch, key) {
