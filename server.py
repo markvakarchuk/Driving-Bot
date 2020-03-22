@@ -1,16 +1,17 @@
 from websocket_server import WebsocketServer
-# from driving import Robot
-# import time
+from driving import *
+import time
+import logging
 
-class Robot():
-  def __init__(self):
-    print("Init")
+# class robot():
+#   def __init__(self):
+#     print("Init")
 
-  def forward(self):
-    print("Forward")
+#   def forward(self):
+#     print("Forward")
 # # Called for every client connecting (after handshake)
 
-bot = Robot()
+bot = robot()
 
 def new_client(client, server):
 	print("New client connected and was given id %d" % client['id'])
@@ -36,14 +37,22 @@ def message_received(client, server, message):
   if(message == "d"):
     bot.right()
 
+  if(message == "cw"):
+    bot.cw()
+
+  if(message == "ccw"):
+    bot.ccw()
+
   print("Client(%d) said: %s" % (client['id'], message))
 
 
 
 PORT=9001
-print("Started on 9000")
-server = WebsocketServer(PORT)
+HOST="0.0.0.0"
+server = WebsocketServer(PORT, "0.0.0.0", loglevel=logging.INFO)
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
 server.set_fn_message_received(message_received)
+# print("Started on " + str(PORT))
+# print("Host " + HOST)
 server.run_forever()
