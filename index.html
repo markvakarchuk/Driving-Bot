@@ -11,7 +11,8 @@
         s: "s",
         d: "d",
         e: "cw",
-        q: "ccw"
+        q: "ccw",
+        " ": "stop"
       };
 
       function init() {
@@ -74,6 +75,12 @@
           ws.send(directions[key]);
           output("sent: " + directions[key]);
         }
+      });
+
+      document.addEventListener("keyup", function(event) {
+        console.log(event);
+        ws.send("stop");
+        output("sent: " + "stop");
       });
     </script>
   </head>
